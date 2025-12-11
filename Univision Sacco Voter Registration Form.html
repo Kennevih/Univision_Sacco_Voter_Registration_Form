@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Univision Sacco - Voter Registration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+<style>
+:root{--primary:#f9a01b;--primary-dark:#d88407;--text:#1a2a6c;--light-bg:#f5f7fa;--white:#fff}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;padding:0}
+body{background:var(--light-bg);}
+.container{width:100%;max-width:100%;margin:0 auto;padding:20px 24px;background:#fff;border-top:10px solid var(--primary)}
+.title-bar{text-align:center;background:var(--primary);color:#fff;font-size:28px;font-weight:700;padding:14px;border-radius:8px;margin-bottom:12px}
+h2{text-align:center;color:var(--text);margin:12px 0 18px}
+label{display:block;font-weight:600;color:#333;margin-top:12px}
+.personal{max-width:1000px;margin:0 auto;padding:14px 8px}
+.input-full{width:100%;padding:14px 18px;border:1px solid #c9d3e0;border-radius:12px;margin-top:8px;font-size:16px;height:52px;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,0.04)}
+.zone-title{background:var(--text);color:#fff;padding:10px;margin-top:22px;border-radius:6px;font-size:16px;font-weight:700}
+details summary{font-weight:700;padding:12px;background:#eef2f7;border-radius:6px;margin-bottom:8px;cursor:pointer}
+.units-box{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 18px;background:#fbfcff;border:1px solid #e7e9ef;padding:12px;border-radius:6px;margin-bottom:10px}
+.btn{background:var(--primary);border:none;padding:14px 18px;color:#fff;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;width:100%;margin-top:10px}
+.btn:hover{background:var(--primary-dark)}
+.btn:disabled{opacity:0.6;cursor:not-allowed}
+.loading-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center}
+.loading-box{background:#fff;padding:20px;border-radius:10px;text-align:center}
+.spinner{width:40px;height:40px;border:4px solid #eee;border-top:4px solid var(--primary);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#confirmUnits{padding:12px;background:#eef2f7;border-radius:8px;margin:10px 0;font-weight:600;color:var(--text)}
+.success-msg{display:none;background:#d4edda;color:#155724;padding:15px;border-radius:8px;margin:10px 0;font-weight:600;border:1px solid #c3e6cb}
+@media(max-width:900px){.units-box{grid-template-columns:1fr} .personal{padding:8px} .input-full{height:50px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="title-bar">UNIVISION SACCO</div>
+  <h2>Voter Registration Form</h2>
+
+  <div class="success-msg" id="successMsg">✓ Registration submitted successfully!</div>
+
+  <div class="personal">
+    <label for="fullName">Full Name *</label>
+    <input id="fullName" class="input-full" type="text" autocomplete="name" required />
+
+    <label for="idNumber">ID Number *</label>
+    <input id="idNumber" class="input-full" type="text" inputmode="numeric" required />
+
+    <label for="mno">Membership Number (MNO) *</label>
+    <input id="mno" class="input-full" type="text" required />
+
+    <label for="shareCapital">Share Capital *</label>
+    <input id="shareCapital" class="input-full" type="text" inputmode="numeric" required />
+
+    <label for="asAtDate">As at Date *</label>
+    <input id="asAtDate" class="input-full" type="date" required />
+  </div>
+
+  <p style="font-weight: 600; color: #1a2a6c; margin: 20px 0 10px; text-align: left;">I hereby register as a voter for delegate in the following unit</p>
+
+  <!-- ZONES + UNITS -->
+
+  <!-- Kitui Central / Katulani -->
+  <h3 class="zone-title">Kitui Central / Katulani</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Kyalilini / Museve"> Kyalilini / Museve</label>
+      <label><input type="checkbox" value="Kalawa / Mulundi"> Kalawa / Mulundi</label>
+      <label><input type="checkbox" value="Ithookwe / Muslim"> Ithookwe / Muslim</label>
+      <label><input type="checkbox" value="Wanzua / Mutune"> Wanzua / Mutune</label>
+      <label><input type="checkbox" value="Mulutu / Kaveta"> Mulutu / Kaveta</label>
+      <label><input type="checkbox" value="Ithiani / Mbusyani"> Ithiani / Mbusyani</label>
+      <label><input type="checkbox" value="Kanzau / Kiviu"> Kanzau / Kiviu</label>
+      <label><input type="checkbox" value="Miambani / Mutulu"> Miambani / Mutulu</label>
+      <label><input type="checkbox" value="Mulango / Kyangunga"> Mulango / Kyangunga</label>
+      <label><input type="checkbox" value="Kangalu / Kithambangii / Wii"> Kangalu / Kithambangii / Wii</label>
+      <label><input type="checkbox" value="Kwa Ukungu / Kwa Ngindu"> Kwa Ukungu / Kwa Ngindu</label>
+      <label><input type="checkbox" value="Katulani / Yakalia"> Katulani / Yakalia</label>
+      <label><input type="checkbox" value="Ithimani / Kavuta"> Ithimani / Kavuta</label>
+      <label><input type="checkbox" value="Kavisuni"> Kavisuni</label>
+      <label><input type="checkbox" value="Kathungi"> Kathungi</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Kitui West / Matinyani -->
+  <h3 class="zone-title">Kitui West / Matinyani</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Kiukuni"> Kiukuni</label>
+      <label><input type="checkbox" value="Tulia / Utoo"> Tulia / Utoo</label>
+      <label><input type="checkbox" value="Usiani"> Usiani</label>
+      <label><input type="checkbox" value="Kalia / Mbavae"> Kalia / Mbavae</label>
+      <label><input type="checkbox" value="Matinyani DEB / Kyambusya"> Matinyani DEB / Kyambusya</label>
+      <label><input type="checkbox" value="Matinyani AIC / Kitundu"> Matinyani AIC / Kitundu</label>
+      <label><input type="checkbox" value="Kathivo"> Kathivo</label>
+      <label><input type="checkbox" value="Kwa Mutonga"> Kwa Mutonga</label>
+      <label><input type="checkbox" value="Kitundumo"> Kitundumo</label>
+      <label><input type="checkbox" value="Kalinditi"> Kalinditi</label>
+      <label><input type="checkbox" value="Katheka / Mutanda"> Katheka / Mutanda</label>
+      <label><input type="checkbox" value="Kwa Mwambi / Katutu"> Kwa Mwambi / Katutu</label>
+      <label><input type="checkbox" value="Maseki"> Maseki</label>
+      <label><input type="checkbox" value="Kauma / Kyaani"> Kauma / Kyaani</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Mutomo & Ikutha -->
+  <h3 class="zone-title">Mutomo & Ikutha</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Athi"> Athi</label>
+      <label><input type="checkbox" value="Kalivu"> Kalivu</label>
+      <label><input type="checkbox" value="Maluma"> Maluma</label>
+      <label><input type="checkbox" value="Ikutha"> Ikutha</label>
+      <label><input type="checkbox" value="Kasaala"> Kasaala</label>
+      <label><input type="checkbox" value="Mutomo"> Mutomo</label>
+      <label><input type="checkbox" value="Kimbwea"> Kimbwea</label>
+      <label><input type="checkbox" value="Voo / Imale"> Voo / Imale</label>
+      <label><input type="checkbox" value="Ikanga"> Ikanga</label>
+      <label><input type="checkbox" value="Kanziko / Simisi"> Kanziko / Simisi</label>
+      <label><input type="checkbox" value="Kyatune"> Kyatune</label>
+      <label><input type="checkbox" value="Mutha"> Mutha</label>
+      <label><input type="checkbox" value="Mathima"> Mathima</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Mutito -->
+  <h3 class="zone-title">Mutito</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Kyamatu"> Kyamatu</label>
+      <label><input type="checkbox" value="Makongo / Kavingo"> Makongo / Kavingo</label>
+      <label><input type="checkbox" value="Zombe Central / Kavaani"> Zombe Central / Kavaani</label>
+      <label><input type="checkbox" value="Kaliku North"> Kaliku North</label>
+      <label><input type="checkbox" value="Ndooa North"> Ndooa North</label>
+      <label><input type="checkbox" value="Malalani"> Malalani</label>
+      <label><input type="checkbox" value="Zombe Western / Southern"> Zombe Western / Southern</label>
+      <label><input type="checkbox" value="Ndooa South"> Ndooa South</label>
+      <label><input type="checkbox" value="Kaliku South"> Kaliku South</label>
+      <label><input type="checkbox" value="Muthungue"> Muthungue</label>
+      <label><input type="checkbox" value="Endau"> Endau</label>
+      <label><input type="checkbox" value="Mwitika / Kikuu"> Mwitika / Kikuu</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Mwingi Central / Migwani -->
+  <h3 class="zone-title">Mwingi Central / Migwani</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Nzawa"> Nzawa</label>
+      <label><input type="checkbox" value="Nguutani"> Nguutani</label>
+      <label><input type="checkbox" value="Thitani"> Thitani</label>
+      <label><input type="checkbox" value="Thaana Nzau"> Thaana Nzau</label>
+      <label><input type="checkbox" value="Migwani"> Migwani</label>
+      <label><input type="checkbox" value="Nzauni"> Nzauni</label>
+      <label><input type="checkbox" value="Nzeluni / Itoloni"> Nzeluni / Itoloni</label>
+      <label><input type="checkbox" value="Muumbuni"> Muumbuni</label>
+      <label><input type="checkbox" value="Waita / Endui"> Waita / Endui</label>
+      <label><input type="checkbox" value="Kiomo"> Kiomo</label>
+      <label><input type="checkbox" value="Thokoa"> Thokoa</label>
+      <label><input type="checkbox" value="Mwingi"> Mwingi</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Nzambani & Kisasi -->
+  <h3 class="zone-title">Nzambani & Kisasi</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Kavalula"> Kavalula</label>
+      <label><input type="checkbox" value="Kilonzo"> Kilonzo</label>
+      <label><input type="checkbox" value="Kiini / Ikuyuni"> Kiini / Ikuyuni</label>
+      <label><input type="checkbox" value="Kanduti"> Kanduti</label>
+      <label><input type="checkbox" value="Nzangathi"> Nzangathi</label>
+      <label><input type="checkbox" value="Inyuu / Kwa Wewa"> Inyuu / Kwa Wewa</label>
+      <label><input type="checkbox" value="Katangasua / Wingoo"> Katangasua / Wingoo</label>
+      <label><input type="checkbox" value="Mbitini / Kivuuni"> Mbitini / Kivuuni</label>
+      <label><input type="checkbox" value="Kisasi"> Kisasi</label>
+      <label><input type="checkbox" value="Kilinyaa"> Kilinyaa</label>
+      <label><input type="checkbox" value="Nguuni"> Nguuni</label>
+      <label><input type="checkbox" value="Kitungati"> Kitungati</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Kyuso, Tseikuru & Mumoni -->
+  <h3 class="zone-title">Kyuso, Tseikuru & Mumoni</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Tseikuru"> Tseikuru</label>
+      <label><input type="checkbox" value="Masyungwa"> Masyungwa</label>
+      <label><input type="checkbox" value="Musavani"> Musavani</label>
+      <label><input type="checkbox" value="Kaningo / Mulangoni"> Kaningo / Mulangoni</label>
+      <label><input type="checkbox" value="Mivukoni"> Mivukoni</label>
+      <label><input type="checkbox" value="Ngaie"> Ngaie</label>
+      <label><input type="checkbox" value="Kyuso"> Kyuso</label>
+      <label><input type="checkbox" value="Kandwia"> Kandwia</label>
+      <label><input type="checkbox" value="Katuuni / Tyaa"> Katuuni / Tyaa</label>
+      <label><input type="checkbox" value="Nguuku / Katse"> Nguuku / Katse</label>
+      <label><input type="checkbox" value="Kalatine / Ngungani"> Kalatine / Ngungani</label>
+      <label><input type="checkbox" value="Thangichu"> Thangichu</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Lower Yatta -->
+  <h3 class="zone-title">Lower Yatta</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Kanyongonyo / Kiseuni"> Kanyongonyo / Kiseuni</label>
+      <label><input type="checkbox" value="Ngomoni / Kalulini"> Ngomoni / Kalulini</label>
+      <label><input type="checkbox" value="Nzambia"> Nzambia</label>
+      <label><input type="checkbox" value="Katothya / Katoteni"> Katothya / Katoteni</label>
+      <label><input type="checkbox" value="Kwangamita"> Kwangamita</label>
+      <label><input type="checkbox" value="Kitooni / Mwaani"> Kitooni / Mwaani</label>
+      <label><input type="checkbox" value="Masaaani"> Masaaani</label>
+      <label><input type="checkbox" value="Kawongo"> Kawongo</label>
+      <label><input type="checkbox" value="Ndunguni"> Ndunguni</label>
+      <label><input type="checkbox" value="Mukelenzuni"> Mukelenzuni</label>
+      <label><input type="checkbox" value="Waivumbu"> Waivumbu</label>
+      <label><input type="checkbox" value="Nthongoni"> Nthongoni</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Mwingi East & Ngomeni -->
+  <h3 class="zone-title">Mwingi East & Ngomeni</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Mui"> Mui</label>
+      <label><input type="checkbox" value="Munyuni / Lundi"> Munyuni / Lundi</label>
+      <label><input type="checkbox" value="Mitamisyi / Kamusiliu"> Mitamisyi / Kamusiliu</label>
+      <label><input type="checkbox" value="Kateiko"> Kateiko</label>
+      <label><input type="checkbox" value="Kalitini / Mathuki"> Kalitini / Mathuki</label>
+      <label><input type="checkbox" value="Nyaani / Mwambiu"> Nyaani / Mwambiu</label>
+      <label><input type="checkbox" value="Nuu / Wingemi"> Nuu / Wingemi</label>
+      <label><input type="checkbox" value="Ngomeni / Kavaani"> Ngomeni / Kavaani</label>
+      <label><input type="checkbox" value="Mutyangome / Nguuni"> Mutyangome / Nguuni</label>
+      <label><input type="checkbox" value="Ukasi"> Ukasi</label>
+      <label><input type="checkbox" value="Imba / Muthuka"> Imba / Muthuka</label>
+      <label><input type="checkbox" value="Nguni"> Nguni</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Makueni County -->
+  <h3 class="zone-title">Makueni County</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Nzaui"> Nzaui</label>
+      <label><input type="checkbox" value="Mukaa"> Mukaa</label>
+      <label><input type="checkbox" value="Makueni"> Makueni</label>
+      <label><input type="checkbox" value="Kathonzweni"> Kathonzweni</label>
+      <label><input type="checkbox" value="Kilungu"> Kilungu</label>
+      <label><input type="checkbox" value="Kambu"> Kambu</label>
+      <label><input type="checkbox" value="Mbooni East"> Mbooni East</label>
+      <label><input type="checkbox" value="Mbooni West"> Mbooni West</label>
+      <label><input type="checkbox" value="National Government"> National Government</label>
+      <label><input type="checkbox" value="Business People"> Business People</label>
+      <label><input type="checkbox" value="ECD Teachers"> ECD Teachers</label>
+      <label><input type="checkbox" value="Support Staff"> Support Staff</label>
+      <label><input type="checkbox" value="County Government"> County Government</label>
+      <label><input type="checkbox" value="Makindu Central"> Makindu Central</label>
+      <label><input type="checkbox" value="Makindu South"> Makindu South</label>
+      <label><input type="checkbox" value="Kibwezi"> Kibwezi</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Machakos County -->
+  <h3 class="zone-title">Machakos County</h3>
+  <details><summary>Units (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Athi River"> Athi River</label>
+      <label><input type="checkbox" value="Kalama"> Kalama</label>
+      <label><input type="checkbox" value="Masinga"> Masinga</label>
+      <label><input type="checkbox" value="National Government"> National Government</label>
+      <label><input type="checkbox" value="Business People"> Business People</label>
+      <label><input type="checkbox" value="ECD Teachers"> ECD Teachers</label>
+      <label><input type="checkbox" value="Support Staff"> Support Staff</label>
+      <label><input type="checkbox" value="County Government"> County Government</label>
+      <label><input type="checkbox" value="Kangundo"> Kangundo</label>
+      <label><input type="checkbox" value="Kathiani"> Kathiani</label>
+      <label><input type="checkbox" value="Mwala"> Mwala</label>
+      <label><input type="checkbox" value="Machakos Central"> Machakos Central</label>
+      <label><input type="checkbox" value="Matungulu"> Matungulu</label>
+      <label><input type="checkbox" value="Machakos East"> Machakos East</label>
+      <label><input type="checkbox" value="Yatta"> Yatta</label>
+      <label><input type="checkbox" value="Retiree Representative"> Retiree Representative</label>
+    </div>
+  </details>
+
+  <!-- Special Groups Zone -->
+  <h3 class="zone-title">Special Groups Zone</h3>
+  <details><summary>Kitui County (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="Business People"> Business People</label>
+      <label><input type="checkbox" value="County Government"> County Government</label>
+      <label><input type="checkbox" value="National Government"> National Government</label>
+      <label><input type="checkbox" value="Support Staff"> Support Staff</label>
+      <label><input type="checkbox" value="ECD Teachers"> ECD Teachers</label>
+    </div>
+  </details>
+
+  <details><summary>Whole Sacco (Click to expand)</summary>
+    <div class="units-box">
+      <label><input type="checkbox" value="People Living with Disability (PWDs)"> People Living with Disability (PWDs)</label>
+      <label><input type="checkbox" value="Top Savers"> Top Savers</label>
+      <label><input type="checkbox" value="Colleges & Universities"> Colleges & Universities</label>
+    </div>
+  </details>
+
+  <h3 class="zone-title">Confirm Your Selection</h3>
+  <div id="confirmUnits">No units selected yet.</div>
+  <button class="btn" id="submitBtn" type="button">Submit Registration</button>
+
+  <div class="loading-overlay" id="loading"><div class="loading-box"><div class="spinner"></div><div>Submitting your registration...</div></div></div>
+
+</div>
+
+<script>
+// ============================================
+// VOTER REGISTRATION FORM SCRIPT
+// Connected to Google Sheets via Apps Script
+// ============================================
+
+(function(){
+  // Your Google Apps Script Web App URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVROF9z83YddhM_OOqKSMY17zKt4caZeqNSzKMVbRhM-p0xSonTxZf1fj3_sh-3zEVxA/exec';
+  
+  const confirmBox = document.getElementById('confirmUnits');
+  const loading = document.getElementById('loading');
+  const successMsg = document.getElementById('successMsg');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // Get all selected checkboxes with their zones
+  function getSelected(){
+    return Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb=>{
+      let detail = cb.closest('details');
+      let zone = '';
+      if(detail){
+        let prev = detail.previousElementSibling;
+        while(prev && prev.tagName !== 'H3') prev = prev.previousElementSibling;
+        if(prev) zone = prev.textContent.trim();
+      }
+      return {zone: zone, unit: cb.value};
+    });
+  }
+
+  // Update the confirmation box
+  function updateConfirm(){
+    const sel = getSelected();
+    if(!sel.length){ 
+      confirmBox.textContent = 'No units selected yet.'; 
+      return; 
+    }
+    
+    const groups = {};
+    sel.forEach(s=>{
+      if(!groups[s.zone]) groups[s.zone]=[];
+      groups[s.zone].push(s.unit);
+    });
+    
+    let html = '<strong style="color:var(--primary)">Selected:</strong><ul style="margin:6px 0 0 18px; padding:0">';
+    for(const z of Object.keys(groups)){
+      groups[z].forEach(u=>{ html += `<li>${z} → ${u}</li>`; });
+    }
+    html += '</ul>';
+    confirmBox.innerHTML = html;
+  }
+
+  // Wire up checkbox selection (only one at a time)
+  function wireSelection(){
+    document.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+      cb.addEventListener('change', function(){
+        if(this.checked){
+          // Uncheck all others
+          document.querySelectorAll('input[type=checkbox]').forEach(other=>{ 
+            if(other!==this) other.checked=false; 
+          });
+        }
+        updateConfirm();
+      });
+    });
+  }
+
+  // Validate form
+  function validate(){
+    const required = ['fullName','idNumber','mno','shareCapital','asAtDate'];
+    for(const id of required){ 
+      const el = document.getElementById(id); 
+      if(!el || String(el.value).trim()==='') return false; 
+    }
+    return getSelected().length>0;
+  }
+
+  // Submit form to Google Sheets
+  async function submitForm(){
+    successMsg.style.display = 'none';
+    
+    if(!validate()){
+      alert('⚠️ Please fill all required fields (marked with *) and select one unit.');
+      return;
+    }
+    
+    const sel = getSelected()[0];
+    const payload = {
+      fullName: document.getElementById('fullName').value.trim(),
+      idNumber: document.getElementById('idNumber').value.trim(),
+      membershipNumber: document.getElementById('mno').value.trim(),
+      shareCapital: document.getElementById('shareCapital').value.trim(),
+      date: document.getElementById('asAtDate').value,
+      zone: sel.zone,
+      unit: sel.unit,
+      timestamp: new Date().toISOString()
+    };
+
+    try{
+      // Show loading
+      loading.style.display = 'flex';
+      submitBtn.disabled = true;
+      
+      // Send to Google Sheets
+      await fetch(SCRIPT_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      
+      // Hide loading
+      loading.style.display = 'none';
+      submitBtn.disabled = false;
+      
+      // Show success message
+      successMsg.style.display = 'block';
+      successMsg.scrollIntoView({behavior: 'smooth', block: 'center'});
+      
+      // Reset form
+      document.getElementById('fullName').value='';
+      document.getElementById('idNumber').value='';
+      document.getElementById('mno').value='';
+      document.getElementById('shareCapital').value='';
+      document.getElementById('asAtDate').value='';
+      document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+      updateConfirm();
+      
+      // Hide success message after 5 seconds
+      setTimeout(()=>{ successMsg.style.display = 'none'; }, 5000);
+      
+    }catch(err){
+      loading.style.display = 'none';
+      submitBtn.disabled = false;
+      console.error('Submission error:', err);
+      alert('❌ Submission failed. Please check your internet connection and try again.');
+    }
+  }
+
+  // Initialize
+  wireSelection();
+  updateConfirm();
+  submitBtn.addEventListener('click', submitForm);
+  
+  // Set today's date as default
+  document.getElementById('asAtDate').valueAsDate = new Date();
+})();
+</script>
+</body>
+</html>
